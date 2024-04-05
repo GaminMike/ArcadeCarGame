@@ -4,14 +4,17 @@ k = love.keyboard
 
 
 function SplashScreen()
-  fadevalue = 0
+  love.graphics.setColor(1, 1, 1, fade)
   love.window.setFullscreen(true)
   local width, height = g.getDimensions()
   local ScaleX = width/3840
   local ScaleY = height/2160
   g.draw(background, 0, 0, 0, ScaleX, ScaleY)
-  fadevalue = fadevalue + 1
+  if fade < 1 then
+    fade = fade + .01
+  end
 end
+
 
 function love.load()
 --Splash Screen background image loading
@@ -20,7 +23,7 @@ function love.load()
 
 
   -- Hello World Text
-  love.graphics.setFont (love.graphics.newFont (50))
+  love.graphics.setFont(love.graphics.newFont (50))
   font = love.graphics.getFont ()
   text = love.graphics.newText(font)
   text:add( {{0,0,0}, "Hello World!"}, 100, 100)
@@ -38,23 +41,9 @@ end
 function love.update(dt)
 
 
-  if k.isDown("escape") then
-    love.event.quit(1)
-  end
-
-
 end
 
 
-
 function love.draw()
-
-
-  love.graphics.setColor(1, 1, 1, fade)
   SplashScreen()
-  love.graphics.draw (text, 10, 10)
-  if fade < 1 then
-    fade = fade + .01
-  end
-
 end
